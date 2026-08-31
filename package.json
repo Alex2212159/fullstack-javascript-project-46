@@ -23,5 +23,13 @@
   "dependencies": {
     "commander": "^15.0.0",
     "lodash": "^4.18.1"
+  },
+  "devDependencies": {
+    "@eslint/create-config": "^2.0.0",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.9.1",
+    "globals": "^17.11.0",
+    "prettier": "3.9.6"
   }
 }

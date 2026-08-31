@@ -1,5 +1,5 @@
-import getParseFile from "./parser.js"
-import _ from "lodash"
+import getParseFile from './parser.js'
+import _ from 'lodash'
 
 const genDiff = (filepath1, filepath2) => {
   const normalizeFileFirst = getParseFile(filepath1)
@@ -14,34 +14,37 @@ const genDiff = (filepath1, filepath2) => {
 
   const sortKeys = _.sortBy(uniqKeys)
 
-  const result = ["{"]
+  const result = ['{']
 
   for (let key of sortKeys) {
     if (
-      Object.hasOwn(normalizeFileFirst, key) &&
-      Object.hasOwn(normalizeFileSecond, key) &&
-      normalizeFileFirst[key] === normalizeFileSecond[key]
+      Object.hasOwn(normalizeFileFirst, key)
+      && Object.hasOwn(normalizeFileSecond, key)
+      && normalizeFileFirst[key] === normalizeFileSecond[key]
     ) {
       result.push(`    ${key}: ${normalizeFileFirst[key]}`)
-    } else if (
-      Object.hasOwn(normalizeFileFirst, key) &&
-      Object.hasOwn(normalizeFileSecond, key) &&
-      normalizeFileFirst[key] !== normalizeFileSecond[key]
+    }
+    else if (
+      Object.hasOwn(normalizeFileFirst, key)
+      && Object.hasOwn(normalizeFileSecond, key)
+      && normalizeFileFirst[key] !== normalizeFileSecond[key]
     ) {
       result.push(`  - ${key}: ${normalizeFileFirst[key]}`)
       result.push(`  + ${key}: ${normalizeFileSecond[key]}`)
-    } else if (
-      Object.hasOwn(normalizeFileFirst, key) &&
-      !Object.hasOwn(normalizeFileSecond, key)
+    }
+    else if (
+      Object.hasOwn(normalizeFileFirst, key)
+      && !Object.hasOwn(normalizeFileSecond, key)
     ) {
       result.push(`  - ${key}: ${normalizeFileFirst[key]}`)
-    } else {
+    }
+    else {
       result.push(`  + ${key}: ${normalizeFileSecond[key]}`)
     }
   }
 
-  result.push("}")
-  return result.join("\n")
+  result.push('}')
+  return result.join('\n')
 }
 
 export default genDiff
