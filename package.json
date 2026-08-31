@@ -28,6 +28,7 @@
     "@eslint/create-config": "^2.0.0",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^10.9.1",
     "globals": "^17.11.0",
     "prettier": "3.9.6",
