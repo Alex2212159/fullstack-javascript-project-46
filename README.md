@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Alex2212159/fullstack-javascript-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Alex2212159/fullstack-javascript-project-46/actions)
 
+[![projectjs](https://github.com/Alex2212159/fullstack-javascript-project-46/actions/workflows/projectjs.yml/badge.svg)](https://github.com/Alex2212159/fullstack-javascript-project-46/actions/workflows/projectjs.yml)
+
 [![asciicast](https://asciinema.org/a/BBCP7FmI2QGmpM8N.svg)](https://asciinema.org/a/BBCP7FmI2QGmpM8N)
 
 # «Вычислитель отличий»
