@@ -7,6 +7,8 @@ lint:
 lint-fix:
 	npx eslint . --fix
 test:
-	npx vitest run
+	npm test
 test-coverage:
-	npx vitest run --coverage
+	npm test -- --coverage
+
+.PHONY: test
