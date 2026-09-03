@@ -3,7 +3,7 @@
 
 [![projectjs](https://github.com/Alex2212159/fullstack-javascript-project-46/actions/workflows/projectjs.yml/badge.svg)](https://github.com/Alex2212159/fullstack-javascript-project-46/actions/workflows/projectjs.yml)
 
-[![asciicast](https://asciinema.org/a/BBCP7FmI2QGmpM8N.svg)](https://asciinema.org/a/BBCP7FmI2QGmpM8N)
+[![asciicast](https://asciinema.org/a/MLu7D0L3a604pUnh.svg)](https://asciinema.org/a/MLu7D0L3a604pUnh)
 
 # «Вычислитель отличий»
 

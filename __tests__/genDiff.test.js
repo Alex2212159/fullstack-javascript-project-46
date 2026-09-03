@@ -20,18 +20,25 @@ test('test perfect', () => {
   expect(genDiff(getPathUse('file1.json'), getPathUse('file2.json'))).toBe(
     result,
   )
+  expect(genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'))).toBe(result)
 })
 
 test('test with different format', () => {
   expect(() =>
     genDiff(getPathUse('file1.json'), getPathUse('file.txt')),
   ).toThrow()
+  expect(() =>
+    genDiff(getPathUse('file1.yml'), getPathUse('file.txt')),
+  ).toThrow()
 })
 
-test('test with empty json', () => {
+test('test with empty file', () => {
   const result = `{
 }`
   expect(
     genDiff(getPathUse('fileNull1.json'), getPathUse('fileNull2.json')),
+  ).toBe(result)
+  expect(
+    genDiff(getPathUse('file1Null.yml'), getPathUse('file2Null.yml')),
   ).toBe(result)
 })
