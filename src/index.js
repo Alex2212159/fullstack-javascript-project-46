@@ -1,16 +1,14 @@
 import getParseFile from './parsers.js'
 import buildDiff from './buildDiff.js'
-import getStylishFormat from './formatters/stylish.js'
+import getFormat from './formatters/index.js'
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const objFirst = getParseFile(filepath1)
   const objSecond = getParseFile(filepath2)
 
   const tree = buildDiff(objFirst, objSecond)
-  const formatters = {
-    stylish: getStylishFormat,
-  }
-  const formatter = formatters[format]
+
+  const formatter = getFormat(format)
 
   return formatter(tree)
 }

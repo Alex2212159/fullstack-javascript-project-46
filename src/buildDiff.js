@@ -47,6 +47,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
           type: 'changed',
           children: buildUnchangedChildren(obj1[elem]),
           newValue: obj2[elem],
+          oldValue: obj1[elem],
         }
       }
       else if (
@@ -57,7 +58,8 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
           key: elem,
           type: 'changed',
           children: buildUnchangedChildren(obj2[elem]),
-          newValue: obj1[elem],
+          newValue: obj2[elem],
+          oldValue: obj1[elem],
         }
       }
       return {
@@ -68,7 +70,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
       }
     }
     if (flagFirst) {
-      if (typeof obj1[elem] === 'object') {
+      if (Object.prototype.toString.call(obj1[elem]) === '[object Object]') {
         return {
           key: elem,
           type: 'deleted',
@@ -77,7 +79,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
       }
       return { key: elem, type: 'deleted', value: obj1[elem] }
     }
-    if (typeof obj2[elem] === 'object') {
+    if (Object.prototype.toString.call(obj2[elem]) === '[object Object]') {
       return {
         key: elem,
         type: 'added',

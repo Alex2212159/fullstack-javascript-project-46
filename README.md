@@ -7,6 +7,8 @@
 
 [![asciicast](https://asciinema.org/a/wngfzyDshIBXipaa.svg)](https://asciinema.org/a/wngfzyDshIBXipaa)
 
+[![asciicast](https://asciinema.org/a/lndmNmKuuWnEN4cR.svg)](https://asciinema.org/a/lndmNmKuuWnEN4cR)
+
 # «Вычислитель отличий»
 
 — программа, которая определяет разницу между двумя структурами данных. Это популярная задача, для которой существуют онлайн-сервисы вроде jsondiff; похожий механизм используется при выводе тестов и при отслеживании изменений в конфигурационных файлах.
@@ -25,7 +27,11 @@ make install
 gendiff -h
 ```
 
-Получение разницы для вложенных структур форматов json и yaml. Вывод дифа в формате stylish (с отступами и спецсимволами). Образец:
+## Functional option 
+
+Получение разницы для вложенных структур форматов json и yaml. 
+
+Вывод дифа в формате stylish (с отступами и спецсимволами). Образец:
 
 ```bash
 gendiff -f stylish __fixtures__/file1.yml  __fixtures__/file2.yml 
@@ -34,4 +40,10 @@ gendiff -f stylish __fixtures__/file1.yml  __fixtures__/file2.yml
 
 ```bash
 gendiff __fixtures__/file1.yml  __fixtures__/file2.yml 
+```
+
+Вывод дифа в формате plain (в виде текстовых описаний изменений). Образец:
+
+```bash
+gendiff -f plain __fixtures__/file1.json __fixtures__/file2.json 
 ```

@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename)
 const getPathUse = filename =>
   path.join(__dirname, '..', '__fixtures__', filename)
 
-test('test perfect', () => {
+test('test perfect functional stylish', () => {
   const result = `{
     common: {
       + follow: false
@@ -58,6 +58,26 @@ test('test perfect', () => {
   )
   expect(genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'))).toBe(result)
 })
+test('test perfect functional plain', () => {
+  const result = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`
+
+  expect(
+    genDiff(getPathUse('file1.json'), getPathUse('file2.json'), 'plain'),
+  ).toBe(result)
+  expect(
+    genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'), 'plain'),
+  ).toBe(result)
+})
 
 test('test with different format', () => {
   expect(() =>
@@ -68,7 +88,7 @@ test('test with different format', () => {
   ).toThrow()
 })
 
-test('test with empty file', () => {
+test('test with empty file with format stylish', () => {
   const result = `{
 }`
   expect(
@@ -76,5 +96,19 @@ test('test with empty file', () => {
   ).toBe(result)
   expect(
     genDiff(getPathUse('file1Null.yml'), getPathUse('file2Null.yml')),
+  ).toBe(result)
+})
+
+test('test with empty file with format plain', () => {
+  const result = ''
+  expect(
+    genDiff(
+      getPathUse('fileNull1.json'),
+      getPathUse('fileNull2.json'),
+      'plain',
+    ),
+  ).toBe(result)
+  expect(
+    genDiff(getPathUse('file1Null.yml'), getPathUse('file2Null.yml'), 'plain'),
   ).toBe(result)
 })
