@@ -22,12 +22,25 @@ const getStylishFormat = (tree = []) => {
         return `${' '.repeat(stepUnchange)}${key}: ${elem.value}`
       }
       else if (type === 'changed') {
-        if (elem.children) {
+        if (
+          elem.children
+          && Object.prototype.toString.call(elem.oldValue) === '[object Object]'
+        ) {
           const childrens = iters(elem.children, depth + 1)
           const separator = ' '.repeat(stepChangeToSymbol)
           return `${separator}- ${key}: {\n${childrens}\n${' '.repeat(stepUnchange)}}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: ${elem.newValue}`
         }
-        return `${' '.repeat(stepChangeToSymbol)}- ${key}: ${elem.oldValue}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: ${elem.newValue}`
+        else if (
+          elem.children
+          && Object.prototype.toString.call(elem.newValue) === '[object Object]'
+        ) {
+          const childrens = iters(elem.children, depth + 1)
+          const separator = ' '.repeat(stepChangeToSymbol)
+          return `${separator}- ${key}: ${elem.oldValue}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: {\n${childrens}\n${' '.repeat(stepUnchange)}}`
+        }
+        else {
+          return `${' '.repeat(stepChangeToSymbol)}- ${key}: ${elem.oldValue}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: ${elem.newValue}`
+        }
       }
       else if (type === 'deleted') {
         if (elem.children) {
