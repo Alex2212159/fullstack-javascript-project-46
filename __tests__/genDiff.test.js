@@ -1,7 +1,8 @@
 import { expect, test } from 'vitest'
-import genDiff from '../src/index.js'
 import { fileURLToPath } from 'url'
 import path from 'path'
+import * as fs from 'node:fs'
+import genDiff from '../src/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -58,6 +59,7 @@ test('test perfect functional stylish', () => {
   )
   expect(genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'))).toBe(result)
 })
+
 test('test perfect functional plain', () => {
   const result = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
@@ -76,6 +78,17 @@ Property 'group3' was added with value: [complex value]`
   ).toBe(result)
   expect(
     genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'), 'plain'),
+  ).toBe(result)
+})
+
+test('test perfect functional json', () => {
+  const result = fs.readFileSync(getPathUse('expected.json'), 'utf-8')
+
+  expect(
+    genDiff(getPathUse('file1.json'), getPathUse('file2.json'), 'json'),
+  ).toBe(result)
+  expect(
+    genDiff(getPathUse('file1.yml'), getPathUse('file2.yml'), 'json'),
   ).toBe(result)
 })
 
@@ -110,5 +123,15 @@ test('test with empty file with format plain', () => {
   ).toBe(result)
   expect(
     genDiff(getPathUse('file1Null.yml'), getPathUse('file2Null.yml'), 'plain'),
+  ).toBe(result)
+})
+
+test('test with empty file with format json', () => {
+  const result = '[]'
+  expect(
+    genDiff(getPathUse('fileNull1.json'), getPathUse('fileNull2.json'), 'json'),
+  ).toBe(result)
+  expect(
+    genDiff(getPathUse('file1Null.yml'), getPathUse('file2Null.yml'), 'json'),
   ).toBe(result)
 })
