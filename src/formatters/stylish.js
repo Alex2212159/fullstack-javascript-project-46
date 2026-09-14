@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const getStylishFormat = (tree = []) => {
   if (tree.length === 0) {
     return `{\n}`
@@ -22,18 +24,12 @@ const getStylishFormat = (tree = []) => {
         return `${' '.repeat(stepUnchange)}${key}: ${elem.value}`
       }
       else if (type === 'changed') {
-        if (
-          elem.children
-          && Object.prototype.toString.call(elem.oldValue) === '[object Object]'
-        ) {
+        if (elem.children && _.isPlainObject(elem.oldValue)) {
           const childrens = iters(elem.children, depth + 1)
           const separator = ' '.repeat(stepChangeToSymbol)
           return `${separator}- ${key}: {\n${childrens}\n${' '.repeat(stepUnchange)}}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: ${elem.newValue}`
         }
-        else if (
-          elem.children
-          && Object.prototype.toString.call(elem.newValue) === '[object Object]'
-        ) {
+        else if (elem.children && _.isPlainObject(elem.newValue)) {
           const childrens = iters(elem.children, depth + 1)
           const separator = ' '.repeat(stepChangeToSymbol)
           return `${separator}- ${key}: ${elem.oldValue}\n${' '.repeat(stepChangeToSymbol)}+ ${key}: {\n${childrens}\n${' '.repeat(stepUnchange)}}`

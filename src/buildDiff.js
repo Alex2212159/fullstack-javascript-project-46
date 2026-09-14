@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const buildUnchangedChildren = (obj = {}) =>
   Object.entries(obj).map(([key, value]) => {
-    if (Object.prototype.toString.call(value) === '[object Object]') {
+    if (_.isPlainObject(value)) {
       return { key, type: 'unchanged', children: buildUnchangedChildren(value) }
     }
     return { key, type: 'unchanged', value }
@@ -25,10 +25,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
     const flagSecond = Object.hasOwn(obj2, elem)
 
     if (flagFirst && flagSecond) {
-      if (
-        Object.prototype.toString.call(obj1[elem]) === '[object Object]'
-        && Object.prototype.toString.call(obj2[elem]) === '[object Object]'
-      ) {
+      if (_.isPlainObject(obj1[elem]) && _.isPlainObject(obj2[elem])) {
         return {
           key: elem,
           type: 'nested',
@@ -38,14 +35,10 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
       if (obj1[elem] === obj2[elem]) {
         return { key: elem, type: 'unchanged', value: obj1[elem] }
       }
-      else if (
-        Object.prototype.toString.call(obj1[elem]) === '[object Object]'
-        || Object.prototype.toString.call(obj2[elem]) === '[object Object]'
-      ) {
-        const valueObject
-          = Object.prototype.toString.call(obj1[elem]) === '[object Object]'
-            ? obj1[elem]
-            : obj2[elem]
+      else if (_.isPlainObject(obj1[elem]) || _.isPlainObject(obj2[elem])) {
+        const valueObject = _.isPlainObject(obj1[elem])
+          ? obj1[elem]
+          : obj2[elem]
         return {
           key: elem,
           type: 'changed',
@@ -64,7 +57,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
       }
     }
     if (flagFirst) {
-      if (Object.prototype.toString.call(obj1[elem]) === '[object Object]') {
+      if (_.isPlainObject(obj1[elem])) {
         return {
           key: elem,
           type: 'deleted',
@@ -73,7 +66,7 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
       }
       return { key: elem, type: 'deleted', value: obj1[elem] }
     }
-    if (Object.prototype.toString.call(obj2[elem]) === '[object Object]') {
+    if (_.isPlainObject(obj2[elem])) {
       return {
         key: elem,
         type: 'added',
