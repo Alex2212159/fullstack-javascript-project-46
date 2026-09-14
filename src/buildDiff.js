@@ -42,19 +42,25 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
         Object.prototype.toString.call(obj1[elem]) === '[object Object]'
         || Object.prototype.toString.call(obj2[elem]) === '[object Object]'
       ) {
+        const valueObject
+          = Object.prototype.toString.call(obj1[elem]) === '[object Object]'
+            ? obj1[elem]
+            : obj2[elem]
         return {
           key: elem,
           type: 'changed',
-          children: buildUnchangedChildren(obj1[elem]),
+          children: buildUnchangedChildren(valueObject),
           newValue: obj2[elem],
           oldValue: obj1[elem],
         }
       }
-      return {
-        key: elem,
-        type: 'changed',
-        oldValue: obj1[elem],
-        newValue: obj2[elem],
+      else {
+        return {
+          key: elem,
+          type: 'changed',
+          oldValue: obj1[elem],
+          newValue: obj2[elem],
+        }
       }
     }
     if (flagFirst) {
