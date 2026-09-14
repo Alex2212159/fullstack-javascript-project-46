@@ -1,5 +1,5 @@
 import getParseFile from './parsers.js'
-import buildDiff from './buildDiff.js'
+import buildTree from './buildDiff.js'
 import getFormat from './formatters/index.js'
 import * as fs from 'node:fs'
 import getType from './format.js'
@@ -14,11 +14,11 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const objFirst = getParseFile(readFileFirst, typeFirst)
   const objSecond = getParseFile(readFileSecond, typeSecond)
 
-  const tree = buildDiff(objFirst, objSecond)
+  const tree = buildTree(objFirst, objSecond)
 
   const formatter = getFormat(format)
 
-  return formatter(tree)
+  return formatter(tree.children)
 }
 
 export default genDiff

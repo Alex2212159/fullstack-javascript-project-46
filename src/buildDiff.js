@@ -91,4 +91,8 @@ const buildDiff = (obj1 = {}, obj2 = {}) => {
   return newArrayKeys
 }
 
-export default buildDiff
+const buildTree = (obj1 = {}, obj2 = {}) => {
+  return { type: 'root', children: buildDiff(obj1, obj2) }
+}
+
+export default buildTree
