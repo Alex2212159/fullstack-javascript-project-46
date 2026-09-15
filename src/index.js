@@ -18,7 +18,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
 
   const formatter = getFormat(format)
 
-  return formatter(tree.children)
+  return formatter(tree)
 }
 
 export default genDiff

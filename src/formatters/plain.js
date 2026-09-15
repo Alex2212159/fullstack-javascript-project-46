@@ -23,8 +23,10 @@ const typesDispatcher = {
   },
 }
 
-const getPlainFormat = (tree = []) => {
-  if (tree.length === 0) {
+const getPlainFormat = (tree = {}) => {
+  const children = tree.children
+
+  if (children.length === 0) {
     return ''
   }
   const iters = (nodes, pathParents) => {
@@ -38,7 +40,7 @@ const getPlainFormat = (tree = []) => {
     })
     return stringArray
   }
-  return iters(tree, '').join('\n')
+  return iters(children, '').join('\n')
 }
 
 export default getPlainFormat

@@ -1,7 +1,9 @@
 import _ from 'lodash'
 
-const getStylishFormat = (tree = []) => {
-  if (tree.length === 0) {
+const getStylishFormat = (tree = {}) => {
+  const children = tree.children
+
+  if (children.length === 0) {
     return `{\n}`
   }
   const iters = (node, depth) => {
@@ -57,7 +59,7 @@ const getStylishFormat = (tree = []) => {
     })
     return string.join('\n')
   }
-  return `{\n${iters(tree, 1)}\n}`
+  return `{\n${iters(children, 1)}\n}`
 }
 
 export default getStylishFormat
